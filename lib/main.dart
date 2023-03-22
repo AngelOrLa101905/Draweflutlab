@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  static const String _title = 'Drawer Flutter';
+  const MyApp({Key? key}) : super(key: key);
+  static const String _title = 'Drawer en flutter';
   // This widget is the root of your application.
+  // final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,29 +28,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       appBar: AppBar(
-        title: Text('Act3 Drawer Rodriguez'),
-        backgroundColor: const Color(0xff764abc),
+        title: Text('Act3 Drawer Orozco'),
+        backgroundColor: const Color(0xff007df2),
       ),
       drawer: Drawer(
         child: ListView(
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
+
           children: [
             const UserAccountsDrawerHeader(
               // <-- SEE HERE
-              decoration: BoxDecoration(color: const Color(0xff764abc)),
+              decoration: BoxDecoration(color: const Color(0xff00a3ff)),
               accountName: Text(
-                "Oscar Antonio Rodriguez Morales",
+                "Angel Rafael Orozco Lara",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               accountEmail: Text(
-                "a.20308051280542@cbtis128.edu.mx",
+                "a.20308051280524@cbtis128.edu.mx",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -66,21 +72,37 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(
-                Icons.train,
+                Icons.book,
               ),
-              title: const Text('Pagina 2'),
+              title: const Text('Libros'),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
               leading: Icon(
-                Icons.add_a_photo,
+                Icons.ads_click_sharp,
               ),
-              title: const Text('Pagina 3'),
+              title: const Text('Generos'),
               onTap: () {
                 Navigator.pop(context);
               },
+            ),
+            AboutListTile(
+              // <-- SEE HERE
+              icon: Icon(
+                Icons.info,
+              ),
+              child: Text('About app'),
+              applicationIcon: Icon(
+                Icons.local_play,
+              ),
+              applicationName: 'Mi libreria personal',
+              applicationVersion: '1.0.25',
+              applicationLegalese: '© 2019 Company',
+              aboutBoxChildren: [
+                ///Content goes here...
+              ],
             ),
           ],
         ),
@@ -91,20 +113,18 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 50,
             ),
+            ElevatedButton(
+              onPressed: () {
+                _key.currentState!.openDrawer(); //<-- SEE HERE
+              },
+              child: const Text(
+                'Elevated Button 1',
+                style: TextStyle(fontSize: 24),
+              ),
+            ),
           ],
         ),
       ),
     );
-    body:
-    Center(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 50,
-          ),
-        ],
-      ),
-    );
   }
 }
-
